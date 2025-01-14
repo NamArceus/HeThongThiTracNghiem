@@ -1,0 +1,461 @@
+/* Reset some basic elements */
+body, h1, h2, h3, p, form {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+}
+
+/* Overall body styling */
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    min-height: 100vh;
+    background-color: #ecf0f1; 
+}
+
+/* Sidebar styling */
+.sidebar {
+    background-color: #34495e; 
+    color: #fff;
+    width: 250px; /* Adjust width as needed */
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+}
+
+.menu-item {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px; /* Adjust font size */
+}
+
+.menu-item:hover, .menu-item.active {
+    background-color: #2c3e50; /* Even darker shade on hover/active */
+}
+
+/* Main content styling */
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    overflow: auto; /* In case of scrolling */
+}
+
+header {
+    background-color: #16a085; /* Stylish teal background */
+    padding: 20px;
+    color: #fff;
+    font-size: 24px;
+}
+
+/* Stats cards styling */
+.stats {
+    display: flex;
+    justify-content: space-around; /* Distribute space evenly between cards */
+    align-items: center; /* Align cards vertically */
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* Individual card styling */
+.card {
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 20px;
+    text-align: center;
+    width: 30%; 
+    margin: 10px; 
+    border-radius: 8px; 
+}
+
+/* Card content styling */
+.card h3 {
+    color: #2c3e50; 
+    font-size: 24px; 
+}
+
+.card p {
+    color: #7f8c8d; 
+    font-size: 16px; 
+    margin-top: 5px; 
+}
+
+/* Classes tab specific styles */
+#classes-content {
+    display: none; 
+}
+
+#new-class-btn {
+    background-color: #16a085;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+#class-form {
+    margin-top: 20px;
+}
+
+#class-form input[type="text"], #class-form button {
+    padding: 10px;
+    margin: 5px 0;
+    display: block;
+    width: 95%;
+}
+
+#class-form button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#class-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    width: 300px;
+    margin: auto;
+}
+
+#classes-list {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#classes-list th, #classes-list td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#classes-list th {
+    background-color: #f2f2f2;
+}
+
+.delete-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        padding: 10px 0;
+        display: block;
+    }
+
+    .main-content {
+        padding: 10px;
+    }
+
+    .stats {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .card {
+        width: auto; /* Full width on smaller screens */
+        margin-bottom: 20px;
+    }
+}
+
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #009990;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #79D7BE;
+}
+
+/** PROFILE */
+.content-pane {
+    display: none; 
+    padding: 20px;
+}
+
+#profile-content {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+}
+h1, h3 {
+    color: #333;
+}
+#user-info p {
+    margin: 8px 0;
+    font-size: 16px;
+}
+label {
+    font-weight: bold;
+    display: block;
+    margin: 10px 0 5px;
+}
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+button {
+    background-color: #009990;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+button:hover {
+    background-color: #0056b3;
+}
+.btn-logout {
+    background-color: #dc3545;
+}
+.btn-logout:hover {
+    background-color: #c82333;
+}
+.hidden {
+    display: none;
+}
+
+
+
+
+/* Teachers tab specific styles */
+#teachers-content {
+    display: none; 
+}
+
+#new-teacher-btn {
+    background-color: #16a085;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+#teacher-form {
+    margin-top: 20px;
+}
+
+#teacher-form input[type="text"], #teacher-form button {
+    padding: 10px;
+    margin: 5px 0;
+    display: block;
+    width: 95%;
+}
+
+#teacher-form button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#teacher-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    width: 300px;
+    margin: auto;
+}
+
+.teachers-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.teachers-table th, .teachers-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.teachers-table th {
+    background-color: #f2f2f2;
+}
+
+.teachers-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+
+/* Students tab specific styles */
+#students-content {
+    display: none; 
+}
+
+#new-student-btn {
+    background-color: #16a085;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+#student-form {
+    margin-top: 20px;
+}
+
+#student-form input[type="text"], #student-form button {
+    padding: 10px;
+    margin: 5px 0;
+    display: block;
+    width: 95%;
+}
+
+#student-form button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#student-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    width: 300px;
+    margin: auto;
+}
+
+.students-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.students-table th, .students-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.students-table th {
+    background-color: #f2f2f2;
+}
+
+.students-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+
+/* Chooose */
+.modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7); /* Tăng độ mờ của nền */
+    z-index: 1000;
+    padding: 20px;
+    backdrop-filter: blur(5px); /* Thêm hiệu ứng làm mờ nền */
+}
+
+.modal h2 {
+    color: #fff; /* Đổi màu tiêu đề thành trắng để nổi bật */
+    margin-bottom: 20px;
+}
+
+.class-list {
+    width: 100%;
+    max-width: 600px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    overflow-y: auto;
+    max-height: 400px; /* Giới hạn chiều cao của danh sách */
+}
+
+.class-list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+.class-list table tr {
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #ddd;
+}
+
+.class-list table tr:hover {
+    background-color: #e0f7fa;
+}
+
+.class-list table td {
+    padding: 10px;
+    text-align: left;
+}
+
+.close-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.close-button:hover {
+    background-color: #0056b3;
+}
+
+
+/* */
+

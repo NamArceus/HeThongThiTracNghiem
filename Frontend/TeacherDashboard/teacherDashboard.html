@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="menu-item active" id="home-tab"><span>Home</span></div>
+        <div class="menu-item" id="classes-tab"><span>Classes</span></div>
+        <div class="menu-item" id="roomtest-tab"><span>Rooms</span></div>
+        <div class="menu-item" id="profile-tab"><span>Profile</span></div>
+        
+    </div>
+
+    <div class="main-content">
+        <header>
+            <h1>Teacher Dashboard</h1>
+        </header>
+        <div id="home-content">
+            <div class="stats">
+                <div class="card">
+                    <p>Total Class</p>
+                    <h3>2</h3>
+                </div>
+                <div class="card">
+                    <p>Total Student</p>
+                    <h3>12</h3>
+                </div>
+            </div>
+        </div>
+
+        <div id="classes-content" class="content-pane" >
+            <div id="classes-title"><h1>Classes List</h1></div>
+            <div id="classes-list"></div>
+            <div id="classDetails" style="display: none;"></div>
+            
+            <div id="testroom-list" ></div>
+            <div id="container">
+                <div id="question-choose" class="question-choose" style="display: none;">
+                    <img src="../images/question.png" id="img-question">
+                    <button type="button" id="createquestion-btn">Tạo đề thi</button>
+                    
+                </div>
+                <div id="question-list" class="question-list" style="display: none;">
+                    <img src="../images/questionslist.jpg" id="img-questionslist">
+                    <button type="button" id="list-question-btn">DS đề thi</button>
+                </div>
+            
+                <div id="list-point" class="list-point" style="display: none;">
+                    <img src="../images/point.jpg" id="img-pointlist">
+                    <button type="button" id="list-point-btn">DS điểm</button>
+                </div>
+            </div>
+            <div id="question-form-template" style="display:none;">
+                <h2 id="form-title">Create Questions</h2>
+                <form id="question-form" class="question-form">
+                    <div class="form-group">
+                        <label for="questionText">Topic:</label>
+                        <textarea id="questionText" name="questionText" required></textarea>
+                    </div>
+            
+                    <div class="form-group" id="multiple-choice-options" style="display:none;">
+                        <label>Options:</label>
+                        <div class="option-group">
+                            <label for="optionA">A:</label>
+                            <input type="text" id="optionA" name="optionA">
+                            <input type="checkbox" id="isCorrectA" name="isCorrectA">
+                            <label for="isCorrectA">Correct</label>
+                        </div>
+                        <div class="option-group">
+                            <label for="optionB">B:</label>
+                            <input type="text" id="optionB" name="optionB">
+                            <input type="checkbox" id="isCorrectB" name="isCorrectB">
+                            <label for="isCorrectB">Correct</label>
+                        </div>
+                        <div class="option-group">
+                            <label for="optionC">C:</label>
+                            <input type="text" id="optionC" name="optionC">
+                            <input type="checkbox" id="isCorrectC" name="isCorrectC">
+                            <label for="isCorrectC">Correct</label>
+                        </div>
+                        <div class="option-group">
+                            <label for="optionD">D:</label>
+                            <input type="text" id="optionD" name="optionD">
+                            <input type="checkbox" id="isCorrectD" name="isCorrectD">
+                            <label for="isCorrectD">Correct</label>
+                        </div>
+                    </div>
+            
+                    <div class="form-actions">
+                        <button type="button" id="submit">Create Question</button>
+                        <button type="button" id="cancel-btn">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
+
+            <div id="questions-list">
+                
+            </div>
+
+            <div id="score-section" style="display: none;">
+                <button id="back-button" class="back-button">Trở về</button>
+                <h3>Danh Sách Điểm</h3>
+                <ul id="score-list" class="score-list">
+                    <!-- Điểm sẽ được hiển thị ở đây -->
+                </ul>
+            </div>
+
+            <div id="editquestion-container" style="display: none;">
+                <h2>Chỉnh sửa câu hỏi</h2>
+                <label for="edit-question-text">QuestionText:</label>
+                <input type="text" id="edit-question-text" />
+            
+                <div id="edit-options-container">
+                    <h3>Options:</h3>
+                    <div class="option-row">
+                        <input type="text" placeholder="Tùy chọn A" />
+                        <input type="checkbox" /> Correct
+                    </div>
+                    <div class="option-row">
+                        <input type="text" placeholder="Tùy chọn B" />
+                        <input type="checkbox" /> Correct
+                    </div>
+                    <div class="option-row">
+                        <input type="text" placeholder="Tùy chọn C" />
+                        <input type="checkbox" /> Correct
+                    </div>
+                    <div class="option-row">
+                        <input type="text" placeholder="Tùy chọn D" />
+                        <input type="checkbox" /> Correct
+                    </div>
+                    <!-- Các tùy chọn sẽ được thêm vào đây -->
+                </div>
+            
+                <button id="save-edit-btn">Lưu thay đổi</button>
+                <button id="cancel-edit-btn">Hủy</button>
+            </div>
+
+        </div>
+
+
+        <div id="room-content" class="room-content" style="display: none;">
+            <div id="room-option" class="room-option">
+                <img src="../images/classic-school-interior-empty-school-room_198696-192.jpg" id="img-room">
+                <button type="button" id="create-room-btn">Tạo phòng</button>
+            </div>
+            
+            <div id="room-form" style="display: none;">
+                <h3>Tạo Phòng Thi</h3>
+                <form id="create-room-form">
+                    <div class="form-group">
+                        <label for="room-name">Tên Phòng:</label>
+                        <input type="text" id="room-name" name="room-name" autocomplete="username" placeholder="Nhập tên phòng" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="class-dropdown">Chọn Lớp:</label>
+                        <select id="class-dropdown" name="classId" required>
+                            <option value="" disabled selected>Chọn lớp</option>
+                            <!-- Options sẽ được thêm từ JS -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="duration">Thời gian (phút):</label>
+                        <input type="number" id="duration" name="duration" min="1" placeholder="Nhập thời gian" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" id="submit-room">Tạo Phòng</button>
+                        <button type="button" id="cancel-room-btn">Hủy</button>
+                    </div>
+                </form>
+            </div>
+        
+            <div id="view-room" class="view-room">
+                <img src="../images/roomlist.jpg" id="img-roomlist">
+                <button type="button" id="view-room-btn">Danh sách phòng</button>
+            </div>
+            
+            <div id="room-list" style="display: none;">
+                <h3>Danh sách phòng:</h3>
+                <button id="back-to-room-btn" class="action-btn">Trở về</button>
+                <ul id="room-ul" class="room-list">
+                    <!-- Danh sách phòng sẽ được thêm từ JS -->
+                </ul>
+            </div>
+        
+            <div id="student-modal" style="display:none;">
+                <div class="modal-content">
+                    <span id="close-modal-btn" style="cursor: pointer;">&times;</span>
+                    <h2>Chọn học sinh để thêm vào phòng</h2>
+                    <ul id="student-list" class="student-list"></ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="profile-content" class="content-pane" style="display: none;">
+            <h1>Teacher Profile</h1>
+            <div id="user-info">
+                <p><strong>FirstName:</strong> <span id="user-firstname"></span></p>
+                <p><strong>LastName:</strong> <span id="user-lastname"></span></p>
+                <p><strong>UserName:</strong> <span id="user-username"></span></p>
+                <!-- Thêm các trường khác nếu cần -->
+            </div>
+
+            <div id="edit-profile" style="display: none;">
+                <h3>Edit Profile</h3>
+                <label for="edit-firstname">First Name:</label>
+                <input type="text" id="edit-firstname" name="edit-firstname" required>
+                <br>
+                <label for="edit-lastname">Last Name:</label>
+                <input type="text" id="edit-lastname" name="edit-lastname" required>
+                <br>
+                <label for="edit-username">Username:</label>
+                <input type="text" id="edit-username" name="edit-username" required>
+                <br>
+                <button type="submit" id="submit-edit-profile">Save Changes</button>
+                <button type="button" id="cancel-edit-profile">Cancel</button>
+            </div>
+
+            <button type="button" class="btn-edit-profile" id="edit-profile-btn">Edit Profile</button>
+
+            <button type="button" class="btn-logout" id="logoutBtn">Log Out</button>
+        </div>
+        
+    </div>
+    </div>
+    <script src="teacherDashboard.js"></script>
+</body>
+</html>

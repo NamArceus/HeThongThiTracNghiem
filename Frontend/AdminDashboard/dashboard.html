@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="menu-item active" id="home-tab"><span>Home</span></div>
+        <div class="menu-item" id="classes-tab"><span>Classes</span></div>
+        <div class="menu-item" id="teachers-tab"><span>Teachers</span></div>
+        <div class="menu-item" id="students-tab"><span>Students</span></div>
+        <div class="menu-item" id="profile-tab"><span>Profile</span></div>
+        
+    </div>
+    
+    <div class="main-content">
+        <header>
+            <h1>Admin Dashboard</h1>
+        </header>
+        <div id="home-content">
+            <div class="stats">
+                <div class="card">
+                    <p>Total Class</p>
+                    <h3 id="total-classes">0</h3>
+                </div>
+                <div class="card">
+                    <p>Total Teacher</p>
+                    <h3 id="total-teachers">0</h3>
+                </div>
+                <div class="card">
+                    <p>Total Student</p>
+                    <h3 id="total-students">0</h3>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="classes-content" class="content-pane" >
+            <h1>Classes List</h1>
+            <button id="new-class-btn">+ New Class</button>
+            <div id="class-form" style="display: none;">
+                <form>
+                    <label for="class-name">Class Name:</label>
+                    <input type="text" id="class-name" name="class-name" autocomplete="username" required>
+                    
+        
+                    <button type="submit" id="submit-class">Create Class</button>
+                    <button type = "button" id="cancel-class-btn">Cancel</button>
+                </form>
+            </div>
+            <table id="classes-list">
+                <tr>
+                    <th>ID</th>
+                    <th>Class Name</th>
+                    <th>Actions</th>
+                </tr>
+            </table>
+        </div>
+
+
+        <div id="teachers-content" class="content-pane" >
+            <h1>Teachers List</h1>
+            <button id="new-teacher-btn">+ New Teacher</button>
+            <div id="teacher-form" style="display: none;">
+                <form>
+                    <label for="teacher-firstname">First Name:</label>
+                    <input type="text" id="teacher-firstname" name="teacher-firstname" required>
+        
+                    <label for="teacher-lastname">Last Name:</label>
+                    <input type="text" id="teacher-lastname" name="teacher-lastname" required>
+
+                    <label for="teacher-username">Username:</label>
+                    <input type="text" id="teacher-username" name="teacher-username" autocomplete="username" required>
+
+                    <label for="teacher-password">Password:</label>
+                    <input type="password" id="teacher-password" name="teacher-password" autocomplete="current-password" required>
+        
+                    <button type="submit" id="submit-teacher">Create Teacher</button>
+                    <button type = "button" id="cancel-teacher-btn">Cancel</button>
+                </form>
+            </div>
+            <div id="class-list-modal" class="modal-container" style="display:none;">
+                <div class="modal">
+                    <h2>Select a Class</h2>
+                    <div id="class-list" class="class-list">
+                        <!-- Danh sách các lớp sẽ được đổ vào đây bằng JavaScript -->
+                    </div>
+                    <button id="close-modal" class="close-button">Back</button>
+                </div>
+            </div>
+            
+            <table id="teachers-list" class="teachers-table">
+                <tr>
+                    <th>ID</th>
+                    <th>TeacherName</th>
+                    <th>Actions</th>
+                </tr>
+            </table>
+        </div>
+
+
+        <div id="students-content" class="content-pane" >
+            <h1>Students List</h1>
+            <button id="new-student-btn">+ New Student</button>
+            <div id="student-form" style="display: none;">
+                <form>
+                    <label for="student-firstname">First Name:</label>
+                    <input type="text" id="student-firstname" name="student-firstname" required>
+        
+                    <label for="student-lastname">Last Name:</label>
+                    <input type="text" id="student-lastname" name="student-lastname" required>
+
+                    <label for="student-username">Username:</label>
+                    <input type="text" id="student-username" name="student-username" autocomplete="username" required>
+
+                    <label for="student-password">Password:</label>
+                    <input type="password" id="student-password" name="student-password" autocomplete="current-password" required>
+        
+                    <button type="submit" id="submit-student">Create Student</button>
+                    <button type = "button" id="cancel-student-btn">Cancel</button>
+                </form>
+            </div>
+            <div id="student-class-list-modal" class="modal-container" style="display:none;">
+                <div class="modal">
+                    <h2>Select a Class</h2>
+                    <div id="student-class-list" class="class-list">
+                        <!-- Danh sách các lớp sẽ được đổ vào đây bằng JavaScript -->
+                    </div>
+                    <button id="student-close-modal" class="close-button">Back</button>
+                </div>
+            </div>
+            <table id="students-list" class="students-table">
+                <tr>
+                    <th>ID</th>
+                    <th>StudentName</th>
+                    <th>Actions</th>
+                </tr>
+            </table>
+        </div>
+
+
+        <div id="profile-content" class="content-pane" style="display: none;">
+            <h2>Admin Profile</h2>
+            <div id="user-info">
+                <p><strong>FirstName:</strong> <span id="user-firstname"></span></p>
+                <p><strong>LastName:</strong> <span id="user-lastname"></span></p>
+                <p><strong>UserName:</strong> <span id="user-username"></span></p>
+                <!-- Thêm các trường khác nếu cần -->
+            </div>
+
+            <div id="edit-profile" style="display: none;">
+                <h3>Edit Profile</h3>
+                <label for="edit-firstname">First Name:</label>
+                <input type="text" id="edit-firstname" name="edit-firstname" required>
+                <br>
+                <label for="edit-lastname">Last Name:</label>
+                <input type="text" id="edit-lastname" name="edit-lastname" required>
+                <br>
+                <label for="edit-username">Username:</label>
+                <input type="text" id="edit-username" name="edit-username" required>
+                <br>
+                <button type="submit" id="submit-edit-profile">Save Changes</button>
+                <button type="button" id="cancel-edit-profile">Cancel</button>
+            </div>
+
+            <button type="button" class="btn-edit-profile" id="edit-profile-btn">Edit Profile</button>
+
+            <button type="button" class="btn-logout" id="logoutBtn">Log Out</button>
+        </div>
+        
+    </div>
+</body>
+<script src="dashboard.js"></script>
+</html>

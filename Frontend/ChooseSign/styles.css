@@ -1,0 +1,62 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom right, #4B0082, #6A5ACD); /* Gradient background */
+    color: white;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    text-align: center;
+    width: 80%;
+}
+
+.title {
+    font-size: 36px;
+    margin-bottom: 40px; /* Space between title and options */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.options {
+    display: flex; /* Use flexbox for horizontal alignment */
+    justify-content: center; /* Center the items horizontally */
+}
+
+.login-option {
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+    color: black;
+    border-radius: 15px;
+    padding: 30px;
+    width: 25%; /* Width of each option */
+    text-align: center;
+    cursor: pointer;
+    margin: 10px; /* Space around each item */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition */
+}
+
+.login-option img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 10px; /* Space below image */
+}
+
+.login-option h1 {
+    font-size: 24px;
+    margin: 10px 0; /* Space above and below heading */
+}
+
+.login-option p {
+    font-size: 16px;
+}
+
+/* Hover effect */
+.login-option:hover {
+    background-color: #f0f0f0; /* Lighter background on hover */
+    transform: translateY(-5px); /* Lift effect */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+}

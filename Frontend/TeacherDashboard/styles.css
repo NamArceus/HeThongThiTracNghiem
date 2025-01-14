@@ -1,0 +1,879 @@
+/* Reset some basic elements */
+body, h1, h2, h3, p, form {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+}
+
+/* Overall body styling */
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    min-height: 100vh;
+    background-color: #ecf0f1; 
+}
+
+/* Sidebar styling */
+.sidebar {
+    background-color: #34495e; 
+    color: #fff;
+    width: 250px; /* Adjust width as needed */
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+}
+
+.menu-item {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px; /* Adjust font size */
+}
+
+.menu-item:hover, .menu-item.active {
+    background-color: #2c3e50;
+}
+
+/* Main content styling */
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    overflow: auto; 
+}
+
+header {
+    background-color: #16a085; 
+    padding: 20px;
+    color: #fff;
+    font-size: 24px;
+}
+
+/* Stats cards styling */
+.stats {
+    display: flex;
+    justify-content: space-around; 
+    align-items: center; 
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* Individual card styling */
+.card {
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 20px;
+    text-align: center;
+    width: 30%; 
+    margin: 10px; 
+    border-radius: 8px; 
+}
+
+/* Card content styling */
+.card h3 {
+    color: #2c3e50; 
+    font-size: 24px; 
+}
+
+.card p {
+    color: #7f8c8d; 
+    font-size: 16px; 
+    margin-top: 5px; 
+}
+
+/* Classes tab specific styles */
+#classes-content {
+    display: none; 
+}
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        padding: 10px 0;
+        display: block;
+    }
+
+    .main-content {
+        padding: 10px;
+    }
+
+    .stats {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .card {
+        width: auto; 
+        margin-bottom: 20px;
+    }
+}
+.content-pane {
+    display: none; 
+    padding: 20px;
+}
+
+
+/** PROFILE **/
+#profile-content {
+    display: block; 
+}
+
+#profile-content {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+}
+h1, h3 {
+    color: #333;
+}
+#user-info p {
+    margin: 8px 0;
+    font-size: 16px;
+}
+label {
+    font-weight: bold;
+    display: block;
+    margin: 10px 0 5px;
+}
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+button:hover {
+    background-color: #0056b3;
+}
+.btn-logout {
+    background-color: #dc3545;
+}
+.btn-logout:hover {
+    background-color: #c82333;
+}
+.hidden {
+    display: none;
+}
+
+
+
+
+/** CLASS DETAIL **/
+#classDetails {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    width: 100%; 
+}
+
+#classDetails h1 {
+    margin: 0;
+    padding: 0;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px; 
+}
+
+#questionText {
+    width: 600px; 
+    height: 30px;  
+}
+
+
+/** TẠO PHÒNG **/
+#room-form {
+    background-color: #f9f9f9; 
+    border: 1px solid #ddd; 
+    border-radius: 10px; 
+    padding: 20px; 
+    max-width: 400px; 
+    margin: 0 auto; 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+}
+
+h3 {
+    color: #6a0dad; 
+    text-align: center; 
+    margin-bottom: 20px; 
+}
+
+.form-group {
+    margin-bottom: 15px; 
+}
+
+label {
+    display: block; 
+    margin-bottom: 5px; 
+    color: #333; 
+}
+
+input[type="text"],
+select {
+    width: 100%; 
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    box-sizing: border-box; 
+    font-size: 16px; 
+}
+
+input[type="text"]:focus,
+select:focus {
+    border-color: #6a0dad; 
+    outline: none; 
+}
+select option {
+    color: #333; 
+}
+
+.form-actions {
+    display: flex; 
+    justify-content: space-between; 
+}
+
+button {
+    background-color: #6a0dad; 
+    color: white; 
+    padding: 10px 15px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+}
+
+button:hover {
+    background-color: #7a3cbe; 
+}
+
+
+/** TAỌ ROOM **/
+.room-option {
+    border: 1px solid lightgray;
+    padding: 10px;
+    margin: 10px;
+    background-color: #36E8FF;
+    width: 90px; 
+    height: 90px;
+    border-radius: 10px; 
+}
+#img-room {
+    width: 90px;
+    height: 90px;
+    background-size: cover;
+    background-position: center center;
+}
+
+
+#create-room-btn {
+    background-color: #6a0dad; 
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    
+}
+
+#create-room-btn:hover {
+    background-color: #4b077d; 
+}
+
+#class-dropdown {
+    width: 70px;
+    padding: 5px;
+    margin: 10px 0;
+    
+}
+
+.container {
+    display: flex; 
+    justify-content: center; 
+    align-items: flex-start; /* Đổi để các ô căn theo đầu */
+    margin-top: 20px; 
+}
+
+.question-choose, .question-list, .list-point {
+    border: 1px solid lightgray;
+    padding: 10px; 
+    background-color: #1D92FF;
+    width: 120px; 
+    height: 120px; 
+    border-radius: 10px;
+    margin: 10px; 
+    text-align: center; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.2s; 
+}
+
+.question-choose:hover, .question-list:hover, .list-point:hover {
+    transform: translateY(-5px); 
+}
+
+img {
+    width: 70px; 
+    height: 70px; 
+    border-radius: 50%; 
+}
+
+.createquestion-btn, .list-question-btn, .list-point-btn {
+    background-color: #6a0dad; 
+    color: white;
+    padding: 5px; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 5px; 
+    width: 100%; 
+    font-size: 14px; 
+    transition: background-color 0.3s; 
+}
+
+.createquestion-btn:hover, .list-question-btn:hover, .list-point-btn:hover {
+    background-color: #8a2be2; 
+}
+/* styles.css */
+
+/* Cấu hình cho bảng */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #000;
+    padding: 10px;
+    text-align: left;
+}
+
+/* NÚT XÓA CÂU HỎI */
+.delete-button {
+    background-color: red; 
+    color: white; 
+    border: none; 
+    padding: 5px 10px; 
+    cursor: pointer; 
+    border-radius: 5px;
+}
+
+/* NÚT CHỈNH SỬA CÂU HỎI */
+.edit-button {
+    background-color:#1D92FF;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 15px;  
+}
+
+/* Nút "Trở về phòng" */
+.back-to-room-button {
+    position: absolute;
+    top: 80px;
+    right: 20px;
+    margin-top: 10px;
+}
+
+
+
+/** TẠO CÂU HỎI **/
+.question-form {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.option-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.option-group label {
+    margin-right: 10px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Định nghĩa kiểu cho tất cả các nút */
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px; /* Tăng kích thước chữ */
+    transition: background-color 0.3s, transform 0.2s; /* Hiệu ứng chuyển tiếp */
+}
+
+/* Nút Trở về phòng */
+button.back-to-room-button {
+    background-color: #007BFF; 
+    color: white;
+}
+
+/* Nút Vào lớp */
+button.enterRoomButton {
+    background-color: #28A745; 
+    color: white;
+}
+
+/* Nút Vào phòng thi */
+button.enterRoomButton:hover {
+    background-color: #218838; 
+}
+
+/* Nút Trở về */
+button#back {
+    background-color: #DC3545; 
+    color: white;
+}
+
+/* Hiệu ứng hover cho nút */
+button:hover {
+    opacity: 0.9; 
+    transform: scale(1.05); 
+}
+
+/* Định nghĩa kiểu cho các nút hành động trong form */
+button#submit {
+    background-color: #4CAF50; 
+    color: white;
+}
+
+button#cancel-btn {
+    background-color: #f44336; 
+    color: white;
+}
+
+button.enterClassButton {
+    background-color: #16a085;
+    color: white;
+}
+
+
+
+/** TAB DANH SÁCH ROOM **/
+.view-room {
+    border: 1px solid lightgray;
+    padding: 10px;
+    margin: 10px;
+    background-color: #36E8FF;
+    width: 90px; 
+    height: 90px;
+    border-radius: 10px; 
+    position: relative;
+    left: 300px;
+    bottom: 120px;
+}
+#roomlist {
+    margin-top: 20px;
+}
+
+#img-roomlist {
+    height: 90px;
+    width: 90px;
+}
+#view-room-btn {
+    background-color: #6a0dad; 
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+
+/* Danh sách phòng */
+.room-list {
+    list-style-type: none; 
+    padding: 0; 
+    max-width: 600px; 
+    margin: 0 auto; 
+}
+
+.room-list li {
+    background-color: #ffffff; 
+    border: 1px solid #ddd; 
+    border-radius: 10px; 
+    padding: 20px; 
+    margin: 10px 0; 
+    transition: transform 0.3s, box-shadow 0.3s; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+}
+
+.room-list li:hover {
+    transform: translateY(-3px); 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+}
+
+.room-list li .room-info {
+    flex-grow: 1; 
+}
+
+h3 {
+    color: #6a0dad; 
+    text-align: center; 
+    margin-bottom: 20px; 
+}
+
+
+/** Nút trở về và nút xóa phòng **/
+#room-list {
+    position: relative; 
+    padding: 20px; 
+}
+
+.action-btn {
+    background-color: #6a0dad; 
+    color: white; 
+    padding: 10px 15px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: background-color 0.3s, transform 0.3s; 
+}
+
+#back-to-rooms-btn {
+    position: absolute; 
+    top: 20px; 
+    right: 20px; 
+}
+
+.action-btn:hover {
+    background-color: #7a3cbe; 
+    transform: translateY(-2px); 
+}
+
+/* Nút xóa trong danh sách phòng */
+.room-info {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 10px; 
+}
+
+.room-info > span {
+    flex: 1; 
+}
+
+.delete-room-btn, .add-student-to-room-btn {
+    margin-left: 10px; 
+}
+
+.delete-room-btn {
+    background-color: #e74c3c; 
+    color: white; 
+    border: none; 
+    border-radius: 5px; 
+    padding: 5px 10px; 
+    cursor: pointer; 
+    transition: background-color 0.3s, transform 0.3s; 
+}
+
+.delete-room-btn:hover {
+    background-color: #c0392b; 
+    transform: translateY(-2px); 
+}
+
+
+/* Nút add học sinh */
+
+.add-student-to-room-btn {
+    background-color: #1abc9c;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    margin-left: 70px;
+}
+.add-student-to-room-btn:hover {
+    background-color: #17a2b8;
+    transform: translateY(-2px);
+}
+
+
+/** DANH SÁCH CHỌN HỌC SINH VÀO PHÒNG **/
+
+#student-modal {
+    display: flex ; /* Hiển thị modal */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Nền mờ */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 400px; /* Chiều rộng modal */
+    
+}
+
+.student-list {
+    list-style-type: none; /* Bỏ dấu bullet */
+    padding: 0;
+}
+
+.student-list li {
+    display: flex;
+    justify-content: space-between; /* Căn giữa */
+    align-items: center; /* Căn giữa dọc */
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.student-list li:last-child {
+    border-bottom: none; 
+}
+
+.add-student-btn {
+    background-color: #4CAF50; 
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s; 
+}
+
+.add-student-btn:hover {
+    background-color: #45a049;
+}
+
+
+#score-section {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+    font-family: 'Arial', sans-serif;
+}
+
+#score-section h3 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+}
+
+.score-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.score-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.score-item:hover {
+    background-color: #e9f5ff;
+    transform: translateY(-2px);
+}
+
+.score-item strong {
+    color: #007bff;
+    font-size: 18px;
+}
+
+.score-item .score {
+    font-size: 16px;
+    color: #555;
+}
+
+.back-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.back-button:hover {
+    background-color: #0056b3;
+}
+
+
+/* Edit question */
+.edit-container {
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 20px auto;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus {
+    border-color: #66afe9;
+    outline: none;
+}
+
+h3 {
+    margin-top: 20px;
+    color: #555;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#save-edit-btn {
+    background-color: #009990;
+}
+
+#save-edit-btn:hover {
+    background-color: #007d73;
+}
+
+#cancel-edit-btn {
+    background-color: #7E5CAD;
+}
+
+#cancel-edit-btn:hover {
+    background-color: #69247C;
+}
+.option-row {
+    display: flex;
+    align-items: center; 
+    margin-top: 10px;
+}
+
+.option-row input[type="text"] {
+    flex: 1; 
+    margin-right: 10px; 
+}
+
+.option-row input[type="checkbox"] {
+    margin-left: 5px; 
+}
+
+
+#edit-profile-btn {
+    background-color: #009990;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#submit-edit-profile {
+    background-color: #009990;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#cancel-edit-profile {
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}

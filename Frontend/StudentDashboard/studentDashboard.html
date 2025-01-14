@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="menu-item active" id="home-tab"><span>Home</span></div>
+        <div class="menu-item" id="classes-tab"><span>Classes</span></div>
+        <div class="menu-item" id="profile-tab"><span>Profile</span></div>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <h1>Student Dashboard</h1>
+        </header>
+        <div id="home-content">
+            <div class="stats">
+                <div class="card">
+                    <p>Total Class</p>
+                    <h3>2</h3>
+                </div>
+            </div>
+        </div>
+
+        <div id="classes-content" class="content-pane" >
+            <div id="classes-title"><h1>Classes List</h1></div>
+            <div id="classes-list"></div>
+            <div id="classDetails" style="display: none;"></div>
+            
+            <div id="room-student-list"></div>
+            <div id="questions-list"></div>
+
+            
+        </div>
+
+        <div id="profile-content" class="content-pane" style="display: none;">
+            <h1>Student Profile</h1>
+            <div id="user-info">
+                <p><strong>FirstName:</strong> <span id="user-firstname"></span></p>
+                <p><strong>LastName:</strong> <span id="user-lastname"></span></p>
+                <p><strong>UserName:</strong> <span id="user-username"></span></p>
+                <!-- Thêm các trường khác nếu cần -->
+            </div>
+
+            <div id="edit-profile" style="display: none;">
+                <h3>Edit Profile</h3>
+                <label for="edit-firstname">First Name:</label>
+                <input type="text" id="edit-firstname" name="edit-firstname" required>
+                <br>
+                <label for="edit-lastname">Last Name:</label>
+                <input type="text" id="edit-lastname" name="edit-lastname" required>
+                <br>
+                <label for="edit-username">Username:</label>
+                <input type="text" id="edit-username" name="edit-username" required>
+                <br>
+                <button type="submit" id="submit-edit-profile">Save Changes</button>
+                <button type="button" id="cancel-edit-profile">Cancel</button>
+            </div>
+
+            <button type="button" class="btn-edit-profile" id="edit-profile-btn">Edit Profile</button>
+
+            <button type="button" class="btn-logout" id="logoutBtn">Log Out</button>
+        </div>
+            
+
+        </div>
+    </div>
+    </div>
+    <script src="studentDashboard.js"></script>
+</body>
+</html>
