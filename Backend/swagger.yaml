@@ -1,0 +1,2352 @@
+openapi: 3.1.0
+info:
+  title: 'My API'
+  version: '1.0.0'
+  description: 'A simple Express API'
+servers:
+  - url: 'http://localhost:8000'
+    description: 'Development server'
+tags:
+  - name: 'admin'
+    description: 'Admin management'
+  - name: 'teacher'
+    description: 'Teacher management'
+  - name: 'student'
+    description: 'Student management'  
+  - name: 'class' 
+    description: 'Class management'
+  - name: 'testroom'
+    description: 'Test room management'   
+  - name: 'question'
+    description: 'Question management'
+  - name: 'answer'
+    description: 'Answer'
+  - name: 'score'
+    description: 'Score'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+paths:
+  /auth/register:
+    post:
+      summary: 'Register a admin'
+      description: 'Create a new admin account'
+      tags:
+        - admin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - firstName
+                - lastName
+                - username
+                - password
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: 'Amdin registered successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Admin registered successfully'
+        '400':
+          description: 'Bad request if the user already exists or validation fails'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Username already exists'
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Register error'
+      security:
+        - bearerAuth: []
+  /auth/login:
+    post:
+      summary: 'Admin login'
+      description: 'Authenticate a admin and return access'
+      tags:
+        - admin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+              properties:
+                username:
+                  type: string
+                  description: 'The username of the user'
+                password:
+                  type: string
+                  description: 'The password of the user'
+      responses:
+        '200':
+          description: 'Admin logged in successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                      username:
+                        type: string
+                  accessToken:
+                    type: string
+                    description: 'JWT access token'
+                  userId:
+                    type: string
+                    description: 'ID of the logged-in user'
+        '400':
+          description: 'Bad request if the username or password is invalid'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Invalid username'
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Login error'
+      security:
+        - bearerAuth: []
+  /auth/profile/{userId}:
+    get:
+      summary: 'Get user profile'
+      description: 'Retrieve the profile of a user by their ID'
+      tags:
+        - admin
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: 'The ID of the user whose profile is to be retrieved'
+      responses:
+        '200':
+          description: 'User profile retrieved successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'User profile retrieved successfully'
+                  data:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                      firstName:
+                        type: string
+                      lastName:
+                        type: string
+                      username:
+                        type: string
+        '400':
+          description: 'Bad request when user ID is not provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'User ID is required'
+        '404':
+          description: 'User not found'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'User not found'
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Server error'
+                  error:
+                    type: string
+                    example: 'Error message details'
+      security:
+        - bearerAuth: []
+  /teacher/registerTeacher:
+    post:
+      summary: 'Register a new teacher'
+      description: 'Create a new teacher account'
+      tags:
+        - teacher
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - firstName
+                - lastName
+                - username
+                - password
+              properties:
+                firstName:
+                  type: string
+                  description: 'The first name of the teacher'
+                lastName:
+                  type: string
+                  description: 'The last name of the teacher'
+                username:
+                  type: string
+                  description: 'The username for the teacher account'
+                password:
+                  type: string
+                  description: 'The password for the teacher account'
+      responses:
+        '200':
+          description: 'Teacher registered successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'User registered successfully'
+                  teacherId:
+                    type: string
+                    description: 'The ID of the registered teacher'
+        '400':
+          description: 'Bad request if the username already exists or validation fails'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Username already exists' 
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Register error'
+      security:
+        - bearerAuth: []
+  /teacher/loginTeacher:
+    post:
+      summary: 'Login a teacher'
+      description: 'Authenticate a teacher and return access'
+      tags:
+        - teacher
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+              properties:
+                username:
+                  type: string
+                  description: 'The username of the teacher'
+                password:
+                  type: string
+                  description: 'The password of the teacher'
+      responses:
+        '200':
+          description: 'Teacher logged in successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      _id:  ########################################
+                        type: string
+                      username:
+                        type: string
+                      role:
+                        type: string
+                  accessToken:
+                    type: string
+                    description: 'JWT access token'
+                  teacherId:
+                    type: string
+                    description: 'ID of the logged-in teacher'
+        '400':
+          description: 'Bad request if the username or password is invalid'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Invalid username' 
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Login error'
+    /teacher/getTeachers:
+    get:
+      summary: 'Get all teachers'
+      description: 'Retrieve a list of all teachers'
+      tags:
+        - teacher
+      responses:
+        '200':
+          description: 'List of teachers retrieved successfully'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    _id: ########################################
+                      type: string
+                    firstName:
+                      type: string
+                    lastName:
+                      type: string
+                    username:
+                      type: string
+                    role:
+                      type: string
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Error message details'
+  /teacher/getTeacherProfile:
+    get:
+      summary: 'Get teacher profile'
+      description: 'Retrieve the profile of a teacher by their ID'
+      tags:
+        - teacher
+      parameters:
+        - in: query
+          name: teacherId
+          required: true
+          schema:
+            type: string
+          description: 'The ID of the teacher whose profile is to be retrieved'
+      responses:
+        '200':
+          description: 'Teacher profile retrieved successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: object
+                    properties:
+                      _id: #########################################
+                        type: string
+                      firstName:
+                        type: string
+                      lastName:
+                        type: string
+                      username:
+                        type: string
+                      role:
+                        type: string
+        '400':
+          description: 'Bad request if teacher ID is not provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Teacher ID is required'
+        '404':
+          description: 'Teacher not found'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Teacher not found'
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'An error occurred while retrieving data'
+                  error:
+                    type: string
+                    example: 'Error message details'
+      security:
+        - bearerAuth: []  
+  /teacher/getClassesForTeacher: #######################################
+    get:
+      summary: 'Get classes for a teacher'
+      description: 'Retrieve a list of classes associated with a teacher by their ID'
+      tags:
+        - teacher
+      parameters:
+        - in: query
+          name: teacherId
+          required: true
+          schema:
+            type: string
+          description: 'The ID of the teacher whose classes are to be retrieved'
+      responses:
+        '200':
+          description: 'Classes retrieved successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id: #################################
+                          type: string
+                        name:
+                          type: string
+                        subject:
+                          type: string
+        '400':
+          description: 'Bad request if teacher ID is not provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Teacher ID is required'
+        '404':
+          description: 'No classes found for this teacher'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'No classes found for this teacher'
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'An error occurred while retrieving data'
+                  error:
+                    type: string
+                    example: 'Error message details'
+      security:
+        - bearerAuth: []  # Nếu cần xác thực
+  /teacher/deleteTeacher/{teacherId}:
+    delete:
+      summary: 'Delete a teacher'
+      description: 'Remove a teacher from the database by their ID'
+      tags:
+        - teacher
+      parameters:
+        - in: path
+          name: teacherId
+          required: true
+          schema:
+            type: string
+          description: 'The ID of the teacher to be deleted'
+      responses:
+        '200':
+          description: 'Teacher deleted successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Teacher deleted successfully'
+        '404':
+          description: 'User not found'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'User not found'
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'An error occurred while deleting the teacher'
+      security:
+        - bearerAuth: []  
+  /student/registerStudent:
+    post:
+      summary: 'Register a new student'
+      description: 'Create a new student account'
+      tags:
+        - student
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - firstName
+                - lastName
+                - username
+                - password
+              properties:
+                firstName:
+                  type: string
+                  description: 'The first name of the student'
+                lastName:
+                  type: string
+                  description: 'The last name of the student'
+                username:
+                  type: string
+                  description: 'The username for the student account'
+                password:
+                  type: string
+                  description: 'The password for the student account'
+      responses:
+        '200':
+          description: 'Student registered successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Student registered successfully'
+                  studentId:
+                    type: string
+                    description: 'The ID of the registered student'
+        '400':
+          description: 'Bad request if the username already exists or validation fails'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Username already exists' 
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Register error'
+      security:
+        - bearerAuth: []  # Nếu cần xác thực
+  /student/loginStudent:
+    post:
+      summary: 'Login a student'
+      description: 'Authenticate a student and return access and refresh tokens'
+      tags:
+        - student
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+              properties:
+                username:
+                  type: string
+                  description: 'The username of the student'
+                password:
+                  type: string
+                  description: 'The password of the student'
+      responses:
+        '200':
+          description: 'Student logged in successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                      username:
+                        type: string
+                      role:
+                        type: string
+                  accessToken:
+                    type: string
+                    description: 'JWT access token'
+                  studentId:
+                    type: string
+                    description: 'ID of the logged-in student'
+        '400':
+          description: 'Bad request if the username or password is invalid'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Invalid username' # hoặc 'Invalid password'
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Login error'
+  /auth/getStudents:
+    get:
+      summary: 'Get all students'
+      description: 'Retrieve a list of all students from the database'
+      tags:
+        - student
+      responses:
+        '200':
+          description: 'List of students retrieved successfully'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                    firstName:
+                      type: string
+                    lastName:
+                      type: string
+                    username:
+                      type: string
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Error message details'
+    /student/getProfileStudent/{studentId}:
+    get:
+      summary: 'Get a student profile'
+      description: 'Retrieve the profile of a student by their ID'
+      tags:
+        - student
+      parameters:
+        - in: path
+          name: studentId
+          required: true
+          schema:
+            type: string
+          description: 'The ID of the student whose profile is to be retrieved'
+      responses:
+        '200':
+          description: 'Student profile retrieved successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Student profile retrieved successfully'
+                  data:
+                    type: object
+                    properties:
+                      _id: ###################################
+                        type: string
+                      firstName:
+                        type: string
+                      lastName:
+                        type: string
+                      username:
+                        type: string
+        '400':
+          description: 'Bad request if student ID is not provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Student ID is required'
+        '404':
+          description: 'Student not found'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Student not found'
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Server error'
+                  error:
+                    type: string
+                    example: 'Error message details'
+      security:
+        - bearerAuth: []  # Nếu cần xác thực
+  /student/deleteStudent/{studentId}:
+    delete:
+      summary: 'Delete a student'
+      description: 'Remove a student from the database by their ID'
+      tags:
+        - student
+      parameters:
+        - in: path
+          name: studentId
+          required: true
+          schema:
+            type: string
+          description: 'The ID of the student to be deleted'
+      responses:
+        '200':
+          description: 'Student deleted successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Student deleted successfully'
+        '404':
+          description: 'User not found'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'User not found'
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Error message details'
+      security:
+        - bearerAuth: []  # Nếu cần xác thực
+  /class/createclass:
+    post:
+      summary: 'Create a new class'
+      description: 'Add a new class to the database'
+      tags:
+        - class
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - nameClass
+              properties:
+                nameClass:
+                  type: string
+                  description: 'The name of the class'
+      responses:
+        '201':
+          description: 'Class created successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Class created successfully'
+                  classId:
+                    type: string
+                    description: 'The ID of the newly created class'
+        '400':
+          description: 'Bad request if required fields are missing'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Required fields are missing'
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Error message details'
+      security:
+        - bearerAuth: []  # Nếu cần xác thực
+  /class/getclass:
+    get:
+      summary: 'Get all classes'
+      description: 'Retrieve a list of all classes from the database'
+      tags:
+        - class
+      responses:
+        '200':
+          description: 'Classes retrieved successfully'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                    nameClass:
+                      type: string
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Error message details'
+    /class/assignteacher:
+    patch:
+      summary: 'Assign a teacher to a class'
+      description: 'Assign a specified teacher to a class by their IDs'
+      tags:
+        - class
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - classId
+                - teacherId
+              properties:
+                classId:
+                  type: string
+                  description: 'The ID of the class to which the teacher will be assigned'
+                teacherId:
+                  type: string
+                  description: 'The ID of the teacher to be assigned'
+      responses:
+        '200':
+          description: 'Teacher assigned successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Teacher assigned successfully'
+        '400':
+          description: 'Bad request if teacher is already assigned to the class'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Teacher already assigned to this class'
+        '403':
+          description: 'Unauthorized if user is not an admin'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Unauthorized: Only admin can assign'
+        '404':
+          description: 'Class or teacher not found'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Class not found or Teacher not found or not a teacher'
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Assign teacher to class error'
+                  error:
+                    type: string
+                    example: 'Error message details'
+      security:
+        - bearerAuth: []  # Nếu cần xác thực
+  /class/assignstudent:
+    patch:
+      summary: 'Assign a student to a class'
+      description: 'Assign a specified student to a class by their IDs'
+      tags:
+        - class
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - classId
+                - studentId
+              properties:
+                classId:
+                  type: string
+                  description: 'The ID of the class to which the student will be assigned'
+                studentId:
+                  type: string
+                  description: 'The ID of the student to be assigned'
+      responses:
+        '200':
+          description: 'Student assigned successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Student assigned successfully'
+        '400':
+          description: 'Bad request if student is already assigned to the class'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Student already assigned to this class'
+        '403':
+          description: 'Unauthorized if user is not an admin'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Unauthorized: Only admin can assign'
+        '404':
+          description: 'Class or student not found'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Class not found'  # Hoặc 'Student not found or not a student'
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Assign student to class error'
+                  error:
+                    type: string
+                    example: 'Error message details'
+      security:
+        - bearerAuth: []  # Thêm security cuối cùng
+  /class/kickteacher:
+    delete:
+      summary: 'Kick a teacher from a class'
+      description: 'Remove a specified teacher from a class by their IDs'
+      tags:
+        - class
+      parameters:
+        - in: query
+          name: classId
+          required: true
+          schema:
+            type: string
+          description: 'The ID of the class from which the teacher will be removed'
+        - in: query
+          name: teacherId
+          required: true
+          schema:
+            type: string
+          description: 'The ID of the teacher to be removed'
+      responses:
+        '200':
+          description: 'Teacher kicked from class successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Teacher kicked from class successfully'
+        '404':
+          description: 'Class or teacher not found'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Class not found'  # Hoặc 'Teacher not found in this class'
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Kick teacher from class error'
+                  error:
+                    type: string
+                    example: 'Error message details'
+      security:
+        - bearerAuth: []  # Thêm security cuối cùng
+  /class/getStudentsInClass:
+    get:
+      summary: 'Get students in a class'
+      description: 'Retrieve a list of students in a specific class by class ID'
+      tags:
+        - class
+      parameters:
+        - in: query
+          name: classId
+          required: true
+          schema:
+            type: string
+          description: 'The ID of the class to retrieve students from'
+      responses:
+        '200':
+          description: 'Successfully fetched students'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  students:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id: ###################################
+                          type: string
+                        firstName:
+                          type: string
+                        lastName:
+                          type: string
+                        username:
+                          type: string
+        '404':
+          description: 'Class not found'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Class not found'
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Error fetching students'
+                  error:
+                    type: string
+                    example: 'Error message details'
+      security:
+        - bearerAuth: []  # Thêm security cuối cùng
+  /class/deleteclass/{classId}:
+    delete:
+      summary: 'Delete a class'
+      description: 'Remove a class from the database by its ID'
+      tags:
+        - class
+      parameters:
+        - in: path
+          name: classId
+          required: true
+          schema:
+            type: string
+          description: 'The ID of the class to be deleted'
+      responses:
+        '200':
+          description: 'Class deleted successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Class deleted successfully'
+        '404':
+          description: 'Class not found'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Class not found'
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Delete class fail'
+      security:
+        - bearerAuth: []  # Thêm security cuối cùng
+  /testroom/getTestRoom:
+    get:
+      summary: 'Get all test rooms'
+      description: 'Retrieve a list of all test rooms from the database'
+      tags:
+        - testroom
+      responses:
+        '200':
+          description: 'Successfully fetched test rooms'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Get Test Room successfully'
+                  roomId:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id: #########################################
+                          type: string
+                        nameRoom:
+                          type: string
+                        classId:
+                          type: string
+                        duration:
+                          type: integer
+                        teacherId:
+                          type: string
+                        completed:
+                          type: boolean
+        '404':
+          description: 'No test rooms found'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Test Room not found'
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Error message details'
+      security:
+        - bearerAuth: []  # Thêm security cuối cùng
+  /testroom/createTestRoom:
+    post:
+      summary: 'Create a new test room'
+      description: 'Add a new test room to the database'
+      tags:
+        - testroom
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - nameRoom
+                - classId
+                - duration
+              properties:
+                nameRoom:
+                  type: string
+                  description: 'The name of the test room'
+                classId:
+                  type: string
+                  description: 'The ID of the class associated with the test room'
+                duration:
+                  type: integer
+                  description: 'The duration of the test in minutes'
+      responses:
+        '201':
+          description: 'Test room created successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  roomId:
+                    type: string
+                    description: 'The ID of the newly created test room'
+        '400':
+          description: 'Bad request if required fields are missing or invalid'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Error message details'
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Error message details'
+      security:
+        - bearerAuth: []  # Thêm security cuối cùng
+  /testroom/getRoomForClass:
+    get:
+      summary: 'Get test rooms for a specific class and teacher'
+      description: 'Retrieve test rooms associated with a specific class ID and teacher ID'
+      tags:
+        - testroom
+      parameters:
+        - in: query
+          name: classId
+          required: true
+          schema:
+            type: string
+          description: 'The ID of the class to retrieve rooms for'
+        - in: query
+          name: teacherId
+          required: true
+          schema:
+            type: string
+          description: 'The ID of the teacher associated with the test rooms'
+      responses:
+        '200':
+          description: 'Successfully fetched test rooms'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  rooms:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id: ####################################
+                          type: string
+                        nameRoom:
+                          type: string
+                        classId:
+                          type: string
+                        duration:
+                          type: integer
+                        teacherId:
+                          type: string
+                        completed:
+                          type: boolean
+        '400':
+          description: 'Bad request if classId or teacherId is missing'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Missing classId or teacherId'
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Error message details'
+      security:
+        - bearerAuth: []  # Thêm security cuối cùng
+  /testroom/getRoomInClass:
+    get:
+      summary: 'Get test rooms for a specific class for a student'
+      description: 'Retrieve test rooms associated with a specific class ID for a student'
+      tags:
+        - testroom
+      parameters:
+        - in: query
+          name: classId
+          required: true
+          schema:
+            type: string
+          description: 'The ID of the class to retrieve rooms for'
+      responses:
+        '200':
+          description: 'Successfully fetched test rooms for the student'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  rooms:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id: ########################################
+                          type: string
+                        nameRoom:
+                          type: string
+                        classId:
+                          type: string
+                        duration:
+                          type: integer
+                        teacherId:
+                          type: string
+                        completed:
+                          type: boolean
+        '404':
+          description: 'No room found for this class'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'No room found for this class'
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Error message details'
+      security:
+        - bearerAuth: []  
+  /testroom/addStudentToRoom:
+    post:
+      summary: 'Add a student to a test room'
+      description: 'Add a specified student to a designated test room'
+      tags:
+        - testroom
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - roomId
+                - studentId
+              properties:
+                roomId:
+                  type: string
+                  description: 'The ID of the test room to which the student will be added'
+                studentId:
+                  type: string
+                  description: 'The ID of the student to be added to the room'
+      responses:
+        '200':
+          description: 'Student added to room successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Student added to room successfully'
+        '400':
+          description: 'Bad request if the student is already in the room'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Student is already in the room'
+        '404':
+          description: 'Not found if room, student, or class does not exist'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Room not found'  # or 'Student not found' or 'Student not found in this class'
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Add student to room error'
+                  error:
+                    type: string
+                    example: 'Error message details'
+      security:
+        - bearerAuth: []  
+  /testroom/kickStudent:
+    delete:
+      summary: 'Kick a student from a test room'
+      description: 'Remove a specified student from a designated test room'
+      tags:
+        - testroom
+      parameters:
+        - in: query
+          name: roomId
+          required: true
+          schema:
+            type: string
+          description: 'The ID of the test room from which the student will be removed'
+        - in: query
+          name: studentId
+          required: true
+          schema:
+            type: string
+          description: 'The ID of the student to be removed from the room'
+      responses:
+        '200':
+          description: 'Student kicked from room successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Student kicked from room successfully'
+        '404':
+          description: 'Not found if room does not exist or student not found in room'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Room not found'  # or 'Student not found in this room'
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Kick student from room error'
+                  error:
+                    type: string
+                    example: 'Error message details'
+      security:
+        - bearerAuth: [] 
+  /testroom/deleteTestRoom/{roomId}:
+    delete:
+      summary: 'Delete a test room'
+      description: 'Remove a specified test room from the database'
+      tags:
+        - testroom
+      parameters:
+        - in: path
+          name: roomId
+          required: true
+          schema:
+            type: string
+          description: 'The ID of the test room to be deleted'
+      responses:
+        '200':
+          description: 'Test room deleted successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Test Room deleted successfully'
+        '404':
+          description: 'Not found if the test room does not exist'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Test Room not found'
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Error message details'
+      security:
+        - bearerAuth: []  
+  /testroom/updateStatus:
+    patch:
+      summary: 'Update the status of a test room'
+      description: 'Change the completion status of a specified test room'
+      tags:
+        - testroom
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - roomId
+                - completed
+              properties:
+                roomId:
+                  type: string
+                  description: 'The ID of the test room to update'
+                completed:
+                  type: boolean
+                  description: 'The new completion status of the test room'
+      responses:
+        '200':
+          description: 'Test room status updated successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Test Room status updated successfully'
+                  room:
+                    type: object
+                    properties:
+                      _id: ############################
+                        type: string
+                      nameRoom:
+                        type: string
+                      classId:
+                        type: string
+                      duration:
+                        type: integer
+                      teacherId:
+                        type: string
+                      completed:
+                        type: boolean
+        '404':
+          description: 'Not found if the test room does not exist'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Test Room not found'
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Error message details'
+      security:
+        - bearerAuth: []  
+  /question/createquestion:
+    post:
+      summary: 'Create a new question'
+      description: 'Add a new multiple-choice question to the question database'
+      tags:
+        - question
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - questionText
+                - options
+                - classId
+                - roomId
+              properties:
+                questionText:
+                  type: string
+                  description: 'The text of the quiz question'
+                options:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      text:
+                        type: string
+                        description: 'The text of the answer option'
+                      isCorrect:
+                        type: boolean
+                        description: 'Indicates if this option is the correct answer'
+                  description: 'The answer options for the multiple-choice question'
+                classId:
+                  type: string
+                  description: 'The ID of the class associated with the quiz'
+                roomId:
+                  type: string
+                  description: 'The ID of the room associated with the quiz'
+      responses:
+        '200':
+          description: 'Question created successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Quiz created successfully'
+                  quiz:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                      questionText:
+                        type: string
+                      questionType:
+                        type: string
+                        example: 'multiple-choice'
+                      options:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            text:
+                              type: string
+                            isCorrect:
+                              type: boolean
+                      classId:
+                        type: string
+                      roomId:
+                        type: string
+                  questionId:
+                    type: string
+                    description: 'The ID of the created question'
+        '400':
+          description: 'Bad request if options are missing or invalid'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Options are required for multiple-choice questions'
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Create quiz error'
+                  error:
+                    type: string
+                    example: 'Error message details'
+      security:
+        - bearerAuth: []    
+  /question/editquestion/{id}:
+    patch:
+      summary: 'Edit an existing quiz'
+      description: 'Update the details of a specified quiz question'
+      tags:
+        - question
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: 'The ID of the quiz question to be updated'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                questionText:
+                  type: string
+                  description: 'The updated text of the quiz question'
+                options:
+                  type: array
+                  items:
+                    type: string
+                  description: 'The updated multiple-choice options for the question'
+                classId:
+                  type: string
+                  description: 'The updated ID of the class associated with the quiz'
+                roomId:
+                  type: string
+                  description: 'The updated ID of the room associated with the quiz'
+      responses:
+        '200':
+          description: 'Quiz updated successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Quiz updated successfully'
+                  quiz:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                      questionText:
+                        type: string
+                      questionType:
+                        type: string
+                        example: 'multiple-choice'
+                      options:
+                        type: array
+                        items:
+                          type: string
+                      classId:
+                        type: string
+                      roomId:
+                        type: string
+        '404':
+          description: 'Not found if the quiz does not exist'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Quiz not found'
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Edit quiz error'
+      security:
+        - bearerAuth: []  
+  /question/getquestion/{roomId}:
+    get:
+      summary: 'Retrieve questions for a specific room'
+      description: 'Fetch all quiz questions associated with a specified room ID'
+      tags:
+        - question
+      parameters:
+        - in: path
+          name: roomId
+          required: true
+          schema:
+            type: string
+          description: 'The ID of the room for which to retrieve questions'
+      responses:
+        '200':
+          description: 'Questions retrieved successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'get question'
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                        questionText:
+                          type: string
+                        questionType:
+                          type: string
+                          example: 'multiple-choice'
+                        options:
+                          type: array
+                          items:
+                            type: string
+                        classId:
+                          type: string
+                        roomId:
+                          type: string
+        '400':
+          description: 'Bad request if roomId is missing'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Missing classId'
+        '404':
+          description: 'Not found if no questions exist for the specified room'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'No questions found for this class'
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Error getting questions'
+                  error:
+                    type: string
+                    example: 'Error message details'
+      security:
+        - bearerAuth: []  
+  /question/deletequestion/{questionId}:
+    delete:
+      summary: 'Delete a quiz question'
+      description: 'Remove a specified quiz question from the database'
+      tags:
+        - question
+      parameters:
+        - in: path
+          name: questionId
+          required: true
+          schema:
+            type: string
+          description: 'The ID of the quiz question to be deleted'
+      responses:
+        '200':
+          description: 'Quiz deleted successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Quiz deleted successfully'
+        '404':
+          description: 'Not found if the quiz does not exist'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Quiz not found'
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Delete quiz error'
+      security:
+        - bearerAuth: []  
+  /answer/submitanswer:
+    post:
+      summary: 'Submit answers for a quiz'
+      description: 'Submit student answers and score for a specific room'
+      tags:
+        - answer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - roomId
+                - answers
+                - score
+              properties:
+                roomId:
+                  type: string
+                  description: 'The ID of the room where the quiz is taken'
+                answers:
+                  type: array
+                  items:
+                    type: string
+                  description: 'The answers submitted by the student'
+                score:
+                  type: number
+                  description: 'The score achieved by the student'
+      responses:
+        '201':
+          description: 'Answers submitted successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Answers submitted successfully!'
+        '400':
+          description: 'Bad request if the input data is invalid'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Invalid data input.'
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Error saving answers.'
+      security:
+        - bearerAuth: []  
+  /score/savescore:
+    post:
+      summary: 'Save the score of a student'
+      description: 'Store the score of a student for a specific room'
+      tags:
+        - score
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - studentId
+                - roomId
+                - score
+              properties:
+                studentId:
+                  type: string
+                  description: 'The ID of the student whose score is being saved'
+                roomId:
+                  type: string
+                  description: 'The ID of the room where the quiz was taken'
+                score:
+                  type: number
+                  description: 'The score achieved by the student'
+      responses:
+        '201':
+          description: 'Score saved successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Score saved successfully!'
+        '400':
+          description: 'Bad request if the input data is invalid'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Invalid input data.'
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Error saving score.'
+      security:
+        - bearerAuth: []  
+  /score/getScoreAllStudent:
+    get:
+      summary: 'Retrieve scores of all students for a specific room'
+      description: 'Fetch all scores submitted by students for a particular room'
+      tags:
+        - score
+      parameters:
+        - in: query
+          name: roomId
+          required: true
+          schema:
+            type: string
+          description: 'The ID of the room for which to retrieve student scores'
+      responses:
+        '200':
+          description: 'Scores retrieved successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                        studentId:
+                          type: object
+                          properties:
+                            _id:
+                              type: string
+                            name:
+                              type: string
+                              description: 'The name of the student'
+                        roomId:
+                          type: string
+                        score:
+                          type: number
+        '400':
+          description: 'Bad request if roomId is missing'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Missing roomId.'
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Error retrieving scores.'
+      security:
+        - bearerAuth: []  
