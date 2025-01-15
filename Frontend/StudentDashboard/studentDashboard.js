@@ -153,7 +153,12 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data.success) {
                 const roomList = document.getElementById('room-list');
                 roomList.innerHTML = ''; // Clear existing rooms
-    
+
+                if(data.rooms.length === 0) {
+                    roomList.innerHTML = '<p>Chưa có phòng thi nào trong lớp này</p>';
+                    return;
+                }
+
                 // Create a list item for each room
                 data.rooms.forEach(room => {
                     const listItem = document.createElement('li');
@@ -182,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                 });
             } else {
-                alert(data.message);
+                console.error('No rooms found:', data.message);
             }
         } catch (error) {
             console.error('Error:', error);

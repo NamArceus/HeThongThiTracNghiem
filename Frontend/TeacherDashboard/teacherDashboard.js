@@ -250,13 +250,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 roomList.innerHTML = ''; // Xóa danh sách cũ
     
                 data.roomId.forEach(room => {
-                    const className = room.classId.nameClass;
+                    const className = room.classId.nameClass; // Lấy tên lớp
                     const listItem = document.createElement('li');
+                    const classId = room.classId._id; // Lấy ID từ classId
+    
                     listItem.innerHTML = `
                         <div class="room-info">
                             <span>Phòng: ${room.nameRoom}</span>
                             <span>Lớp: ${className}</span>
-                            <button class="add-student-to-room-btn" data-room-id="${room._id}" data-class-id="${room.classId}">Thêm học sinh</button>
+                            <button class="add-student-to-room-btn" data-room-id="${room._id}" data-class-id="${classId}">Thêm học sinh</button>
                             <button class="delete-room-btn" data-room-id="${room._id}">Xóa</button>
                         </div>
                     `;
@@ -267,19 +269,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('room-list').style.display = 'block';
                 document.getElementById('room-option').style.display = 'none';
                 document.getElementById('view-room').style.display = 'none';
-
+    
                 // Gán click thêm học sinh
                 const addStudentButtons = document.querySelectorAll('.add-student-to-room-btn');
-            addStudentButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const roomId = this.dataset.roomId;
-                    const classId = this.dataset.classId; 
-                    showStudentList(classId, roomId); // Hiển thị danh sách học sinh của lớp
+                addStudentButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const roomId = this.dataset.roomId;
+                        const classId = this.dataset.classId; 
+                        console.log("ClassId: ", classId); // Kiểm tra giá trị classId
+                        showStudentList(classId, roomId); // Hiển thị danh sách học sinh của lớp
+                    });
                 });
-            });
-                
-                
-                //Gán click xóa
+    
+                // Gán click xóa
                 const deleteButtons = document.querySelectorAll('.delete-room-btn');
                 deleteButtons.forEach(button => {
                     button.addEventListener('click', function() {
@@ -295,7 +297,7 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Có lỗi xảy ra: ' + error.message);
         }
     });
-
+    
     async function showStudentList(classId, roomId) {
         const userToken = localStorage.getItem('userToken');
     
