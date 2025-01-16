@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
         });
     });
-    const backendUrl = "https://hethongthitracnghiem-tdxf.onrender.com";
+    const backendUrl = "https://hethongthitracnghiem-k3p2.onrender.com";
     fetchClasses();
     //Điều chỉnh giao diện khi ấn nút
     document.getElementById('create-room-btn').addEventListener('click', function() {

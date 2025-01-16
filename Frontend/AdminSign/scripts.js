@@ -8,7 +8,7 @@ function showLogin() {
     document.getElementById('loginForm').style.display = 'block';
 }
 
-const backendUrl = "https://hethongthitracnghiem-tdxf.onrender.com"
+const backendUrl = "https://hethongthitracnghiem-k3p2.onrender.com"
 
 function login() {
     var username = document.getElementById('loginUsername').value;

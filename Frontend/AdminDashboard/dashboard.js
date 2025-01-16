@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    const backendUrl = "https://hethongthitracnghiem-tdxf.onrender.com";
+    const backendUrl = "https://hethongthitracnghiem-k3p2.onrender.com";
 
     //interface new class
     document.getElementById('new-class-btn').addEventListener('click', function() {

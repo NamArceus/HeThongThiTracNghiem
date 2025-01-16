@@ -1,4 +1,4 @@
-const backendUrl = "https://hethongthitracnghiem-tdxf.onrender.com"
+const backendUrl = "https://hethongthitracnghiem-k3p2.onrender.com"
 function loginTeacher() {
     var username = document.getElementById('loginUsernameTeacher').value;
     var password = document.getElementById('loginPasswordTeacher').value;

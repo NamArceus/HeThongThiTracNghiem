@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
         startExam(roomId); // Gọi hàm để bắt đầu bài thi
     }
 
-    const backendUrl = "https://hethongthitracnghiem-tdxf.onrender.com";
+    const backendUrl = "https://hethongthitracnghiem-k3p2.onrender.com";
     async function startExam(roomId) {
         try {
             const userToken = localStorage.getItem('userToken');

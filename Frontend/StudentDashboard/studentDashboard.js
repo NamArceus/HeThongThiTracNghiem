@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     fetchClasses();
-    const backendUrl = "https://hethongthitracnghiem-tdxf.onrender.com"
+    const backendUrl = "https://hethongthitracnghiem-k3p2.onrender.com"
 
     function fetchClasses() {
         const studentId = localStorage.getItem('studentId');
