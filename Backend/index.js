@@ -65,7 +65,7 @@ mongoose.connect(process.env.MONGODB_URL)
 app.get('/', (req, res) => {
     res.status(200).send('Welcome to Server');
 })
-
-app.listen(8000, () => {
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, () => {
     console.log('The server runs successfully');
 })
