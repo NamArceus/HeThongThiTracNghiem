@@ -47,9 +47,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
         });
     });
-    fetchClasses();
+    
     const backendUrl = "https://hethongthitracnghiem-k3p2.onrender.com"
-
+    fetchClasses();
     function fetchClasses() {
         const studentId = localStorage.getItem('studentId');
         console.log("StudentId: ",studentId);
