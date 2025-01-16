@@ -1,9 +1,10 @@
+const backendUrl = "https://hethongthitracnghiem-tdxf.onrender.com"
 function loginStudent() {
     var username = document.getElementById('loginUsernameStudent').value;
     var password = document.getElementById('loginPasswordStudent').value;
     console.log('Login:', username, password);
 
-    fetch('http://localhost:8000/student/loginStudent',{
+    fetch(`${backendUrl}/student/loginStudent`,{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -17,7 +18,7 @@ function loginStudent() {
                 localStorage.setItem('userToken', data.accessToken);
                 localStorage.setItem('studentId', data.studentId);
                 console.log('Token saved.');
-                window.location.href = 'http://127.0.0.1:5501/Frontend/StudentDashboard/studentDashboard.html';
+                window.location.href = 'https://he-thong-thi-trac-nghiem.vercel.app/StudentDashboard/studentDashboard.html';
             }
         })
     .catch((error) => {

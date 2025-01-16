@@ -8,12 +8,13 @@ document.addEventListener("DOMContentLoaded", function() {
         startExam(roomId); // Gọi hàm để bắt đầu bài thi
     }
 
+    const backendUrl = "https://hethongthitracnghiem-tdxf.onrender.com";
     async function startExam(roomId) {
         try {
             const userToken = localStorage.getItem('userToken');
     
             // Lấy câu hỏi từ API
-            const response = await fetch(`http://localhost:8000/question/getquestion/${roomId}`, {
+            const response = await fetch(`${backendUrl}/question/getquestion/${roomId}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': 'Bearer ' + userToken,
@@ -118,7 +119,7 @@ async function submitAnswers() {
     const userToken = localStorage.getItem('userToken');
 
     try {
-        const response = await fetch('http://localhost:8000/answer/submitanswer', {
+        const response = await fetch(`${backendUrl}/answer/submitanswer`, {
             method: 'POST',
             headers: {
                 'Authorization': 'Bearer ' + userToken,
@@ -157,7 +158,7 @@ document.querySelector('.close-btn').addEventListener('click', function() {
 });
 
 document.getElementById("back-btn").addEventListener('click', function() {
-    window.location.href = 'http://127.0.0.1:5501/Frontend/StudentDashboard/studentDashboard.html';
+    window.location.href = 'https://he-thong-thi-trac-nghiem.vercel.app/StudentDashboard/studentDashboard.html';
 });
 
 
@@ -169,7 +170,7 @@ async function updateRoomStatus(roomId) {
         return;
     }
     try {
-        const response = await fetch('http://localhost:8000/testroom/updateStatus', {
+        const response = await fetch(`${backendUrl}/testroom/updateStatus`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -200,7 +201,7 @@ async function saveScore(studentId, roomId, score) {
     const userToken = localStorage.getItem('userToken');
     
     try {
-        const response = await fetch('http://localhost:8000/score/savescore', {
+        const response = await fetch(`${backendUrl}/score/savescore`, {
             method: 'POST',
             headers: {
                 'Authorization': 'Bearer ' + userToken,

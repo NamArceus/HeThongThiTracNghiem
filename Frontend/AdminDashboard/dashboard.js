@@ -67,6 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    const backendUrl = "https://hethongthitracnghiem-tdxf.onrender.com";
 
     //interface new class
     document.getElementById('new-class-btn').addEventListener('click', function() {
@@ -116,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var nameClass = document.getElementById('class-name').value;
         
     
-        fetch('http://localhost:8000/class/createclass', {
+        fetch(`${backendUrl}/class/createclass`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -158,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Invalid class ID');
             return;
         }
-        fetch(`http://localhost:8000/class/deleteclass/${classId}`, {
+        fetch(`${backendUrl}/class/deleteclass/${classId}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('userToken')
@@ -175,7 +176,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     function updateClassList() {
-        fetch('http://localhost:8000/class/getclass', {
+        fetch(`${backendUrl}/class/getclass`, {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('userToken')
             }
@@ -234,7 +235,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var username = document.getElementById('teacher-username').value;
         var password = document.getElementById('teacher-password').value;
 
-        fetch('http://localhost:8000/teacher/registerTeacher', {
+        fetch(`${backendUrl}/teacher/registerTeacher`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -271,7 +272,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Invalid teacher ID');
             return;
         }
-        fetch(`http://localhost:8000/teacher/deleteTeacher/${teacherId}`, {
+        fetch(`${backendUrl}/teacher/deleteTeacher/${teacherId}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('userToken')
@@ -291,7 +292,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //Update TEACHER
     function updateTeacherList() {
-        fetch('http://localhost:8000/teacher/getTeachers', {
+        fetch(`${backendUrl}/teacher/getTeachers`, {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('userToken')
             }
@@ -374,7 +375,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const classId = cls._id; 
     
                     console.log('Class ID being sent: ', classId);
-                    fetch('http://localhost:8000/class/assignteacher', {
+                    fetch(`${backendUrl}/class/assignteacher`, {
                         method: 'PATCH',
                         headers: {
                             'Content-Type': 'application/json',
@@ -399,7 +400,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Hàm giả định để lấy danh sách các lớp học
     function fetchClasses() {
-        return fetch('http://localhost:8000/class/getclass') 
+        return fetch(`${backendUrl}/class/getclass`) 
             .then(response => response.json())
             .then(data => {
                 console.log(data);
@@ -427,7 +428,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var username = document.getElementById('student-username').value;
         var password = document.getElementById('student-password').value;
 
-        fetch('http://localhost:8000/student/registerStudent', {
+        fetch(`${backendUrl}/student/registerStudent`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -464,7 +465,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Invalid student ID');
             return;
         }
-        fetch(`http://localhost:8000/student/deleteStudent/${studentId}`, {
+        fetch(`${backendUrl}/deleteStudent/${studentId}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('userToken')
@@ -481,7 +482,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     function updateStudentList() {
-        fetch('http://localhost:8000/student/getStudents', {
+        fetch(`${backendUrl}/student/getStudents`, {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('userToken')
             }
@@ -560,7 +561,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const classId = cls._id; 
                 
                     console.log('Class ID being sent: ', classId);
-                    fetch('http://localhost:8000/class/assignstudent', {
+                    fetch(`${backendUrl}/class/assignstudent`, {
                         method: 'PATCH',
                         headers: {
                             'Content-Type': 'application/json',
@@ -586,7 +587,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function fetchStudentClasses() {
-        return fetch('http://localhost:8000/class/getclass') 
+        return fetch(`${backendUrl}/class/getclass`) 
             .then(response => response.json())
             .then(data => {
                 console.log(data);
@@ -609,7 +610,7 @@ document.addEventListener('DOMContentLoaded', function() {
     async function getProfile(userId) {
         try {
             const token = localStorage.getItem('userToken'); 
-            const response = await fetch(`http://localhost:8000/user/getprofile/${userId}`, {
+            const response = await fetch(`${backendUrl}/user/getprofile/${userId}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`, 
@@ -666,7 +667,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     
         try {
-            const response = await fetch(`http://localhost:8000/user/editprofile/${userId}`, {
+            const response = await fetch(`${backendUrl}/user/editprofile/${userId}`, {
                 method: 'PATCH', 
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -714,7 +715,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function logout() {
         localStorage.removeItem('userToken');
-        window.location.href = 'http://127.0.0.1:5501/Frontend/ChooseSign/choose.html';
+        window.location.href = 'https://he-thong-thi-trac-nghiem.vercel.app/ChooseSign/choose.html';
     }
     
 

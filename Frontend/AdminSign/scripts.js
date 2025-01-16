@@ -8,12 +8,14 @@ function showLogin() {
     document.getElementById('loginForm').style.display = 'block';
 }
 
+const backendUrl = "https://hethongthitracnghiem-tdxf.onrender.com"
+
 function login() {
     var username = document.getElementById('loginUsername').value;
     var password = document.getElementById('loginPassword').value;
     console.log('Login with:', username, password);
 
-    fetch('http://localhost:8000/auth/login', {
+    fetch(`${backendUrl}/auth/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -27,7 +29,7 @@ function login() {
                 localStorage.setItem('userToken', data.accessToken); // Lưu token vào localStorage
                 localStorage.setItem('userId', data.userId); //
                 console.log('Token saved');
-                window.location.href = 'http://127.0.0.1:5501/Frontend/AdminDashboard/dashboard.html'; 
+                window.location.href = 'https://he-thong-thi-trac-nghiem.vercel.app/AdminDashboard/dashboard.html'; 
                 console.error('Token not found in response');
             } 
         })
@@ -45,7 +47,7 @@ function register() {
     var password = document.getElementById('registerPassword').value;
     console.log('Register with:', firstName, lastName, username, password);
     
-    fetch('http://localhost:8000/auth/register', {
+    fetch(`${backendUrl}/auth/register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

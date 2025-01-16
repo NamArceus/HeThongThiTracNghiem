@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
         });
     });
+    const backendUrl = "https://hethongthitracnghiem-tdxf.onrender.com";
     fetchClasses();
     //Điều chỉnh giao diện khi ấn nút
     document.getElementById('create-room-btn').addEventListener('click', function() {
@@ -75,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        const url = `http://localhost:8000/teacher/getClassesForTeacher?teacherId=${teacherId}`;
+        const url = `${backendUrl}/teacher/getClassesForTeacher?teacherId=${teacherId}`;
         fetch(url, {
             method: 'GET',
             headers: {
@@ -154,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         localStorage.setItem('duration', duration);
-        fetch('http://localhost:8000/testroom/createTestRoom' , {
+        fetch(`${backendUrl}/testroom/createTestRoom` , {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -198,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        fetch(`http://localhost:8000/testroom/deleteTestRoom/${roomId}`, {
+        fetch(`${backendUrl}/testroom/deleteTestRoom/${roomId}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': 'Bearer ' + userToken,
@@ -230,7 +231,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     
         try {
-            const response = await fetch('http://localhost:8000/testroom/getTestRoom', {
+            const response = await fetch(`${backendUrl}/testroom/getTestRoom`, {
                 method: 'GET',
                 headers: {
                     'Authorization': 'Bearer ' + userToken,
@@ -302,7 +303,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const userToken = localStorage.getItem('userToken');
     
         try {
-            const response = await fetch(`http://localhost:8000/class/getStudentsInClass?classId=${classId}`, {
+            const response = await fetch(`${backendUrl}/class/getStudentsInClass?classId=${classId}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': 'Bearer ' + userToken,
@@ -354,7 +355,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const userToken = localStorage.getItem('userToken');
         
         try {
-            const response = await fetch('http://localhost:8000/testroom/addStudentToRoom', {
+            const response = await fetch(`${backendUrl}/testroom/addStudentToRoom`, {
                 method: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + userToken,
@@ -403,7 +404,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         console.log('Fetching room for class:', classId);
-        const url = `http://localhost:8000/testroom/getRoomForClass?classId=${classId}&teacherId=${teacherId}`;
+        const url = `${backendUrl}/testroom/getRoomForClass?classId=${classId}&teacherId=${teacherId}`;
         fetch(url, {
             method: 'GET',
             headers: {
@@ -657,7 +658,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     
         // Gửi yêu cầu cập nhật đến server
-        fetch(`http://localhost:8000/question/editquestion/${questionId}`, {
+        fetch(`${backendUrl}/question/editquestion/${questionId}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -706,7 +707,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Room ID is null or undefined.');
             return;
         }
-        fetch(`http://localhost:8000/question/getquestion/${roomId}`, {
+        fetch(`${backendUrl}/question/getquestion/${roomId}`, {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('userToken')
@@ -757,7 +758,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return; 
         }
     
-        fetch('http://localhost:8000/question/createquestion', {
+        fetch(`${backendUrl}/question/createquestion`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -824,7 +825,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return; 
         }
     
-        fetch(`http://localhost:8000/score/getScoreAllStudent?roomId=${currentRoomId}`, {
+        fetch(`${backendUrl}/score/getScoreAllStudent?roomId=${currentRoomId}`, {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('userToken')
@@ -886,7 +887,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Question ID is not defined.');
             return;
         }
-        fetch(`http://localhost:8000/question/deletequestion/${questionId}`, {
+        fetch(`${backendUrl}/question/deletequestion/${questionId}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('userToken')
@@ -906,7 +907,7 @@ document.addEventListener('DOMContentLoaded', function() {
     async function getProfile(teacherId) {
         try {
             const token = localStorage.getItem('userToken'); 
-            const response = await fetch(`http://localhost:8000/teacher/getTeacherProfile?teacherId=${teacherId}`, {
+            const response = await fetch(`${backendUrl}/teacher/getTeacherProfile?teacherId=${teacherId}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`, 
@@ -963,7 +964,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     
         try {
-            const response = await fetch(`http://localhost:8000/teacher/editTeacherProfile/${teacherId}`, {
+            const response = await fetch(`${backendUrl}/teacher/editTeacherProfile/${teacherId}`, {
                 method: 'PATCH', 
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -1012,7 +1013,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function logout() {
         localStorage.removeItem('userToken');
-        window.location.href = 'http://127.0.0.1:5501/Frontend/ChooseSign/choose.html';
+        window.location.href = 'https://he-thong-thi-trac-nghiem.vercel.app/ChooseSign/choose.html';
     }
     function loadHomeStats() {
         console.log(statsArea);

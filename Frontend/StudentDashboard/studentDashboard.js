@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     fetchClasses();
+    const backendUrl = "https://hethongthitracnghiem-tdxf.onrender.com"
 
     function fetchClasses() {
         const studentId = localStorage.getItem('studentId');
@@ -58,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        const url = `http://localhost:8000/student/getClassesForStudent?studentId=${studentId}`;
+        const url = `${backendUrl}/student/getClassesForStudent?studentId=${studentId}`;
         fetch(url, {
             method: 'GET',
             headers: {
@@ -135,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             const userToken = localStorage.getItem('userToken');
     
-            const response = await fetch(`http://localhost:8000/testroom/getRoomInClass?classId=${cls._id}`, {
+            const response = await fetch(`${backendUrl}/testroom/getRoomInClass?classId=${cls._id}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': 'Bearer ' + userToken,
@@ -183,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     button.addEventListener('click', function() {
                         const roomId = this.dataset.roomId;
                         alert("Bắt đầu làm bài");
-                        window.location.href = `http://127.0.0.1:5501/Frontend/DoTest/test.html?roomId=${roomId}`;
+                        window.location.href = `https://he-thong-thi-trac-nghiem.vercel.app/DoTest/test.html?roomId=${roomId}`;
                     });
                 });
             } else {
@@ -202,7 +203,7 @@ document.addEventListener('DOMContentLoaded', function() {
     async function getProfile(studentId) {
         try {
             const token = localStorage.getItem('userToken'); 
-            const response = await fetch(`http://localhost:8000/student/getProfileStudent/${studentId}`, {
+            const response = await fetch(`${backendUrl}/student/getProfileStudent/${studentId}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`, 
@@ -260,7 +261,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     
         try {
-            const response = await fetch(`http://localhost:8000/student/editProfileStudent/${studentId}`, {
+            const response = await fetch(`${backendUrl}/student/editProfileStudent/${studentId}`, {
                 method: 'PATCH', 
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -309,7 +310,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function logout() {
         localStorage.removeItem('userToken');
-        window.location.href = 'http://127.0.0.1:5501/Frontend/ChooseSign/choose.html';
+        window.location.href = 'https://he-thong-thi-trac-nghiem.vercel.app/ChooseSign/choose.html';
     }
     function loadHomeStats() {
         console.log(statsArea);
