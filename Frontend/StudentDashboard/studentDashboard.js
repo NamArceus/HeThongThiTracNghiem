@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     const backendUrl = "https://hethongthitracnghiem-k3p2.onrender.com"
-    
+    fetchClasses();
     function fetchClasses() {
         const studentId = localStorage.getItem('studentId');
         console.log("StudentId: ",studentId);
@@ -77,8 +77,8 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => console.error('Error fetching classes:', error));
     }
+
     
-    fetchClasses();
     function displayClasses(classes) {
         const classesList = document.getElementById('classes-list');
         classesList.innerHTML = '';
