@@ -62,6 +62,9 @@ mongoose.connect(process.env.MONGODB_URL)
     console.log('Connected to MongoDB failed');
 })
 
+app.get('/', (req, res) => {
+    res.status(200).send('Welcome to Server');
+})
 
 app.listen(8000, () => {
     console.log('The server runs successfully');
