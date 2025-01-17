@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
+    const backendUrl = "https://hethongthitracnghiem-k3p2.onrender.com";
     const urlParams = new URLSearchParams(window.location.search);
     const roomId = urlParams.get('roomId');
 
@@ -8,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
         startExam(roomId); // Gọi hàm để bắt đầu bài thi
     }
 
-    const backendUrl = "https://hethongthitracnghiem-k3p2.onrender.com";
+    
     async function startExam(roomId) {
         try {
             const userToken = localStorage.getItem('userToken');
