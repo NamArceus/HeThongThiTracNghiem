@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    const backendUrl = "https://hethongthitracnghiem-k3p2.onrender.com";
     const tabs = document.querySelectorAll('.menu-item');
     const contentHeader = document.querySelector('.main-content header');
     const statsArea = document.querySelector('.stats');
@@ -67,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    const backendUrl = "https://hethongthitracnghiem-k3p2.onrender.com";
+    
 
     //interface new class
     document.getElementById('new-class-btn').addEventListener('click', function() {
